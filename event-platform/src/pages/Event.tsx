@@ -31,6 +31,8 @@ const Event = () => {
         "Cadastre-se ou insira seu e-mail cadastrado para acessar a plataforma."
       );
       navigate("/");
+
+      return () => localStorage.removeItem("userId");
     }, []);
   }
 };
