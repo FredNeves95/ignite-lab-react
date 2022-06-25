@@ -11,7 +11,7 @@ const Footer = () => {
           </strong>
         </div>
 
-        <a href="google.com" target="_blank" className="text-gray-300">
+        <a href="https://google.com" target="_blank" className="text-gray-300">
           Políticas de privacidade
         </a>
       </div>
