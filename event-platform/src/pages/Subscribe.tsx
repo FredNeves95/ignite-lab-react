@@ -4,6 +4,7 @@ import Icon from "../components/Icon";
 import { useCreateSubscriberMutation } from "../graphql/generated";
 import codeMockupImage from "../assets/code-mockup.png";
 import Footer from "../components/Footer";
+import ReactIcon from "../components/ReactIcon";
 const Subscribe = () => {
   const navigate = useNavigate();
   const [name, setName] = useState<string>("");
@@ -25,6 +26,7 @@ const Subscribe = () => {
 
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
+      <ReactIcon />
       <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
         <div className="max-w-[640px]">
           <Icon />
