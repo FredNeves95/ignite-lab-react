@@ -1,28 +1,12 @@
-import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Icon from "../components/Icon";
-import { useCreateSubscriberMutation } from "../graphql/generated";
 import codeMockupImage from "../assets/code-mockup.png";
 import Footer from "../components/Footer";
 import ReactIcon from "../components/ReactIcon";
+import SubscribeForm from "../components/SubscribeForm";
+import LoginForm from "../components/LoginForm";
 const Subscribe = () => {
-  const navigate = useNavigate();
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-
-  const [createSubscriber, { loading }] = useCreateSubscriberMutation();
-
-  const handleSubscribe = async (e: FormEvent) => {
-    e.preventDefault();
-    await createSubscriber({
-      variables: {
-        name,
-        email,
-      },
-    });
-
-    navigate("/event");
-  };
+  const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
 
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
@@ -41,37 +25,18 @@ const Subscribe = () => {
             oportunidades do mercado.
           </p>
         </div>
-        <div className="p-8 bg-gray-700 border border-gray-500 rounded">
-          <strong className="text-2xl mb-6 block">
-            Inscreva-se gratuitamente
-          </strong>
-          <form
-            onSubmit={handleSubscribe}
-            className="flex flex-col gap-2 w-full"
-          >
-            <input
-              className="bg-gray-900 rounded px-5 h-14"
-              type="text"
-              placeholder="Seu nome completo"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+        <div>
+          {isAlreadySubscribed ? (
+            <LoginForm
+              isAlreadySubscribed={isAlreadySubscribed}
+              setIsAlreadySubscribed={setIsAlreadySubscribed}
             />
-            <input
-              className="bg-gray-900 rounded px-5 h-14"
-              type="email"
-              placeholder="Digite seu e-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+          ) : (
+            <SubscribeForm
+              isAlreadySubscribed={isAlreadySubscribed}
+              setIsAlreadySubscribed={setIsAlreadySubscribed}
             />
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"
-            >
-              Garantir minha vaga
-            </button>
-          </form>
+          )}
         </div>
       </div>
       <img
