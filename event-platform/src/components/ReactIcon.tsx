@@ -1,6 +1,14 @@
-const ReactIcon = () => {
+interface ReactIconProps {
+  marginTopValue?: string;
+}
+
+const ReactIcon = ({ marginTopValue }: ReactIconProps) => {
   return (
-    <div className="absolute -z-10 top-[10px]">
+    <div
+      className={`absolute -z-10 top-[${
+        marginTopValue ? marginTopValue : "10"
+      }px]`}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="654"

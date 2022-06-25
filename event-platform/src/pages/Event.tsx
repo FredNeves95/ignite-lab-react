@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import DefaultEvent from "../components/DefaultEvent";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Video from "../components/Video";
@@ -13,7 +14,7 @@ const Event = () => {
       <Header />
 
       <main className="flex flex-1">
-        {slug ? <Video lessonSlug={slug} /> : <div className="flex-1"></div>}
+        {slug ? <Video lessonSlug={slug} /> : <DefaultEvent />}
 
         <Sidebar />
       </main>
