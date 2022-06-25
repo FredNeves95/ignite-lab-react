@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import DefaultEvent from "../components/DefaultEvent";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
@@ -8,18 +9,30 @@ type Slug = string;
 
 const Event = () => {
   const { slug } = useParams<Slug>();
+  const navigate = useNavigate();
 
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
+  const isLogged = localStorage.getItem("userId");
 
-      <main className="flex flex-1">
-        {slug ? <Video lessonSlug={slug} /> : <DefaultEvent />}
+  if (isLogged) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <Header />
 
-        <Sidebar />
-      </main>
-    </div>
-  );
+        <main className="flex flex-1">
+          {slug ? <Video lessonSlug={slug} /> : <DefaultEvent />}
+
+          <Sidebar />
+        </main>
+      </div>
+    );
+  } else {
+    useEffect(() => {
+      alert(
+        "Cadastre-se ou insira seu e-mail cadastrado para acessar a plataforma."
+      );
+      navigate("/");
+    }, []);
+  }
 };
 
 export default Event;
