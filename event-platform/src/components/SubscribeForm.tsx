@@ -13,7 +13,7 @@ const SubscribeForm = ({
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-  const [createSubscriber, { loading, error }] = useCreateSubscriberMutation();
+  const [createSubscriber, { loading }] = useCreateSubscriberMutation();
 
   const { setSubscriberName } = useContext(
     SubscriberContext
