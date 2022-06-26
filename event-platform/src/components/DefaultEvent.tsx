@@ -13,7 +13,7 @@ const DefaultEvent = () => {
 
   return (
     <div className="flex-1 flex flex-col justify-between">
-      <div className="text-gray-300 pt-10 text-2xl flex flex-col items-center gap-10">
+      <div className="text-gray-300 pt-10 text-2xl flex flex-col items-center gap-10 px-12 lg:px-0">
         <span>
           Olá, <strong className="text-blue-500">{name}</strong>.<br />
           Bem vindo(a) ao <strong className="text-blue-500">Ignite Lab</strong>!
