@@ -11,30 +11,28 @@ const Event = () => {
   const { slug } = useParams<Slug>();
   const navigate = useNavigate();
 
-  const isLogged = localStorage.getItem("userId");
+  useEffect(() => {
+    const isLogged = localStorage.getItem("userId");
 
-  if (isLogged) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <Header />
-
-        <main className="flex flex-1">
-          {slug ? <Video lessonSlug={slug} /> : <DefaultEvent />}
-
-          <Sidebar />
-        </main>
-      </div>
-    );
-  } else {
-    useEffect(() => {
+    if (!isLogged) {
       alert(
         "Cadastre-se ou insira seu e-mail cadastrado para acessar a plataforma."
       );
       navigate("/");
+    }
+  }, []);
 
-      return () => localStorage.removeItem("userId");
-    }, []);
-  }
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+
+      <main className="flex flex-1">
+        {slug ? <Video lessonSlug={slug} /> : <DefaultEvent />}
+
+        <Sidebar />
+      </main>
+    </div>
+  );
 };
 
 export default Event;
