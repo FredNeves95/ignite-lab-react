@@ -1,5 +1,7 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SubscriberNameContextType } from "../contexts/subscriberContext/useSubscriberName";
+import { SubscriberContext } from "../contexts/subscriberContext/useSubscriberNameContext";
 import { useCreateSubscriberMutation } from "../graphql/generated";
 import { SubscribeChildrenProps } from "../utils/constants";
 
@@ -11,7 +13,11 @@ const SubscribeForm = ({
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-  const [createSubscriber, { data, loading }] = useCreateSubscriberMutation();
+  const [createSubscriber, { loading }] = useCreateSubscriberMutation();
+
+  const { setSubscriberName } = useContext(
+    SubscriberContext
+  ) as SubscriberNameContextType;
 
   const handleSubscribe = async (e: FormEvent) => {
     e.preventDefault();
@@ -20,9 +26,16 @@ const SubscribeForm = ({
         name,
         email,
       },
-    }).then((res) => console.log(res));
+    }).then((res) => {
+      if (res.data?.createSubscriber?.id) {
+        localStorage.setItem("userId", res.data?.createSubscriber?.id);
+        setSubscriberName(name);
 
-    navigate("/event");
+        return navigate("/event");
+      }
+
+      return alert("Ops! Algo deu errado. Tente novamente.");
+    });
   };
 
   return (

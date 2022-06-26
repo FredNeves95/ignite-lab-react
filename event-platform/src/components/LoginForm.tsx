@@ -27,7 +27,7 @@ const LoginForm = ({
       },
     }).then((res) => {
       if (res?.data?.subscriber) {
-        window.localStorage.setItem("userId", res.data?.subscriber?.id);
+        localStorage.setItem("userId", res.data?.subscriber?.id);
         setSubscriberName(res.data.subscriber.name);
         return navigate("/event");
       }
