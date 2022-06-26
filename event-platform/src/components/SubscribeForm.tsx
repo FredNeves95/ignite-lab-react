@@ -13,7 +13,7 @@ const SubscribeForm = ({
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-  const [createSubscriber, { loading }] = useCreateSubscriberMutation();
+  const [createSubscriber, { loading, error }] = useCreateSubscriberMutation();
 
   const { setSubscriberName } = useContext(
     SubscriberContext
@@ -26,16 +26,20 @@ const SubscribeForm = ({
         name,
         email,
       },
-    }).then((res) => {
-      if (res.data?.createSubscriber?.id) {
-        localStorage.setItem("userId", res.data?.createSubscriber?.id);
-        setSubscriberName(name);
+    })
+      .then((res) => {
+        if (res.data?.createSubscriber?.id) {
+          localStorage.setItem("userId", res.data?.createSubscriber?.id);
+          setSubscriberName(name);
 
-        return navigate("/event");
-      }
+          return navigate("/event");
+        }
 
-      return alert("Ops! Algo deu errado. Tente novamente.");
-    });
+        return alert("Ops! Algo deu errado. Tente novamente.");
+      })
+      .catch(() => {
+        alert("E-mail já cadastrado no sistema.");
+      });
   };
 
   return (
