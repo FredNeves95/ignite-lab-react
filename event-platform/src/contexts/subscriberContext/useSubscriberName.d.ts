@@ -1,4 +1,3 @@
-import { SetSubscriberName } from "./useSubscriberName.d";
 type SubscriberName = string;
 
 export type GetSubscriberName = () => SubscriberName;
